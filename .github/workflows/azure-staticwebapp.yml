@@ -43,6 +43,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
+          cache-dependency-path: altinn3editor/package-lock.json
       - run: npm ci
         working-directory: altinn3editor
       - run: npm run build --if-present
