@@ -1,9 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RepoRoot } from '../../app/types';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { RepoRoot } from "../../app/types";
 
 export interface RepoState {
-  initial: RepoRoot;
-  current: RepoRoot;
+  initial?: RepoRoot;
+  current?: RepoRoot;
 }
 
 const initialState: RepoState = {
@@ -11,9 +11,8 @@ const initialState: RepoState = {
   current: null!,
 };
 
-
 export const repoSlice = createSlice({
-  name: 'repo',
+  name: "repo",
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
@@ -48,7 +47,5 @@ export const repoSlice = createSlice({
 });
 
 export const { load } = repoSlice.actions;
-
-
 
 export default repoSlice.reducer;
