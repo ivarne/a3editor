@@ -29,7 +29,7 @@ export interface Rule {
 }
 
 /** JSON Schema describing a simplified access control policy format for Altinn applications. */
-export interface Test {
+export interface Policy2 {
     Policy?: Policy;
 }
 

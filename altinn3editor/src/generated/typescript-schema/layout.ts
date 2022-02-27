@@ -13,7 +13,7 @@ export interface Data {
     layout?: Component[];
 }
 
-export interface Component extends any {
+export interface Component {
     /** The component ID. Must be unique within a given layout. */
     id: string;
     /** The component type. */
@@ -175,7 +175,7 @@ export interface InputFormatting {
 }
 
 /** Schema that describes the options that can be configured for number formatting on an `input` component, based on react-number-format package. For complete list of available options, see https://github.com/s-yadav/react-number-format#props */
-export interface Json extends any {
+export interface Json {
     /** Characters which when pressed result in a decimal separator. When missing, decimalSeparator and '.' are used */
     allowedDecimalSeparators?: string[];
     /** Apply formatting to empty inputs */
@@ -203,7 +203,7 @@ export interface Json extends any {
 }
 
 /** Schema that describes the layout configuration for Altinn applications. */
-export interface Test {
+export interface Layout {
     data?: Data;
 }
 

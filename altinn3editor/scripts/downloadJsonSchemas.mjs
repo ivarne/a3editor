@@ -20,7 +20,7 @@ async function download( host, query, destination )
             file.on( 'error', error => reject( error ) );
 
             // Create a request:
-            const request = client.request( { [':path']: query } );
+            const request = client.request( { ':path': query } );
 
             // On initial response handle non-success (!== 200) status error:
             request.on

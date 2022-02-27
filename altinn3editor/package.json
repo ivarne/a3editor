@@ -11,9 +11,11 @@
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
     "@types/react-redux": "^7.1.22",
+    "@zip.js/zip.js": "^2.4.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
+    "react-router-dom": "^6.2.1",
     "react-scripts": "^5.0.0",
     "typescript": "~4.5.5"
   },
@@ -22,7 +24,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "geneated:download": "node scripts/downloadJsonSchemas.mjs"
+    "geneated:download": "node scripts/downloadJsonSchemas.mjs",
+    "geneated:typescript": "node scripts/convertTypescriptSchema.mjs"
   },
   "eslintConfig": {
     "extends": "react-app"

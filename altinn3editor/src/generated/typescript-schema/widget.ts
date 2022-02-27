@@ -8,21 +8,39 @@
 
 
 
-/** Settings regarding components */
-export interface Components {
-    excludeFromPdf?: string[];
+/** A collection of text resources for a given language */
+export interface TextResources {
+    language: Language;
+    resources: ResourceText[];
 }
 
-/** Settings regarding layout pages */
-export interface Pages {
-    order?: string[];
-    excludeFromPdf?: string[];
-    /** Triggers that apply for all navigation components across all pages. Can be overrided at the component level. */
-    triggers?: Triggers[];
+/** Defines the language for the text resources */
+export enum Language {
+    Nb = "nb",
+    Nn = "nn",
+    En = "en",
+}
+
+/** Contains the details of a resource text definition */
+export interface ResourceText {
+    /** The unique ID for the resource text */
+    id: string;
+    /** The text value of the resource text */
+    value: string;
+    /** Collection of variables to be used in resource text */
+    variables?: ResourceTextVariable[];
+}
+
+/** Definition of a variable to be used within a resource text */
+export interface ResourceTextVariable {
+    /** Key specifying which data to use */
+    key: string;
+    /** Specifies which data source to use. F.ex. dataModel.<name of data model> */
+    dataSource: string;
 }
 
 /** Schema that describes the options that can be configured for number formatting on an `input` component, based on react-number-format package. For complete list of available options, see https://github.com/s-yadav/react-number-format#props */
-export interface Json extends any {
+export interface Json {
     /** Characters which when pressed result in a decimal separator. When missing, decimalSeparator and '.' are used */
     allowedDecimalSeparators?: string[];
     /** Apply formatting to empty inputs */
@@ -54,7 +72,7 @@ export interface Data {
     layout?: Component[];
 }
 
-export interface Component extends any {
+export interface Component {
     /** The component ID. Must be unique within a given layout. */
     id: string;
     /** The component type. */
@@ -220,17 +238,11 @@ export interface Json2 {
     data?: Data;
 }
 
-/** Schema that describes settings for the layout configuration for Altinn applications. */
-export interface Test {
-    components?: Components;
-    pages?: Pages;
-}
-
-export enum Triggers {
-    Validation = "validation",
-    ValidatePage = "validatePage",
-    ValidateAllPages = "validateAllPages",
-    CalculatePageOrder = "calculatePageOrder",
+/** Schema that describes a widget for use in Altinn Studio */
+export interface Widget {
+    components: Component[];
+    displayName: string;
+    texts?: TextResources[];
 }
 
 export enum ComponentType {
@@ -251,6 +263,13 @@ export enum ComponentType {
     RadioButtons = "RadioButtons",
     Summary = "Summary",
     TextArea = "TextArea",
+}
+
+export enum Triggers {
+    Validation = "validation",
+    ValidatePage = "validatePage",
+    ValidateAllPages = "validateAllPages",
+    CalculatePageOrder = "calculatePageOrder",
 }
 
 export interface LabelSettings {

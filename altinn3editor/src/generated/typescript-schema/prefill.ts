@@ -179,7 +179,7 @@ export interface DSF {
 }
 
 /** Schema that describes the prefill configuration for Altinn applications. */
-export interface Test {
+export interface Prefill {
     /** Flag to determine if existing values in the app data model can be overwritten by prefill data. */
     allowOverwrite?: boolean;
     UserProfile?: UserProfile;
