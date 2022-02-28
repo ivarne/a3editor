@@ -16,10 +16,14 @@ on:
   push:
     branches:
       - main
+    paths:
+      - altinn3editor/**
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
       - main
+    paths:
+      - altinn3editor/**
 
 # Environment variables available to all jobs and steps in this workflow
 env:
