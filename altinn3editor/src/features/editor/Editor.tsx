@@ -1,17 +1,21 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
-import { useEditorSelector } from "./editorSelectorHooks";
+import { NavLink, Outlet } from "react-router-dom";
+import { usePageSelector } from "./editorSelectorHooks";
 
 export default function Editor() {
-  const components = useEditorSelector("informasjon");
-  console.log(components);
+  const pages = usePageSelector();
   return (
     <div>
-      {/* {JSON.stringify(components)} */}
+      <nav>
+        <ul>
+          {pages?.map((page) => (
+            <li key={page}>
+              <NavLink to={`/editor/${page.toLowerCase()}`}>{page}</NavLink>
+            </li>
+          ))}
+        </ul>
+      </nav>
       <Outlet />
-      {components?.map((component, i) => (
-        <div key={i}>{JSON.stringify(component.boundResource)}</div>
-      ))}
     </div>
   );
 }

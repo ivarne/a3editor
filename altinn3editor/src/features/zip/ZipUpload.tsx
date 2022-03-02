@@ -1,13 +1,13 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../app/hooks";
 import { load } from "../repo/repoSlice";
 import { getAppFilesUpload } from "./zipToJson";
 
-export default function Zip() {
+export default function ZipUpload() {
   const dispatch = useAppDispatch();
-  const hasRoot = useAppSelector((state) => state.repo.initial === null);
-  if (!hasRoot) return <Navigate to="/editor" />;
+  const navigate = useNavigate();
+
   return (
     <div>
       <input type="file" name="test" id="test-upload" />
@@ -15,6 +15,7 @@ export default function Zip() {
         onClick={async (e) => {
           const uploadState = await getAppFilesUpload("test-upload");
           dispatch(load(uploadState));
+          navigate("/editor");
         }}
       >
         Click to upload
