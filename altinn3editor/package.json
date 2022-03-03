@@ -12,6 +12,8 @@
     "@types/react-dom": "^17.0.11",
     "@types/react-redux": "^7.1.22",
     "@zip.js/zip.js": "^2.4.5",
+    "ajv": "^8.10.0",
+    "ajv-cli": "^5.0.0",
     "dompurify": "^2.3.6",
     "marked": "^4.0.12",
     "react": "^17.0.2",
@@ -26,8 +28,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "geneated:download": "node scripts/downloadJsonSchemas.mjs",
-    "geneated:typescript": "node scripts/convertTypescriptSchema.mjs"
+    "generated:download": "node scripts/downloadJsonSchemas.mjs",
+    "generated:typescript": "node scripts/convertTypescriptSchema.mjs",
+    "generated:validation": "ajv compile -s src/generated/json-schema/layout/layout.schema.v1.json -r \"src/generated/json-schema/component/number-format.schema.v1.json\" -o src/generated/validators/validator.js --strict log"
   },
   "eslintConfig": {
     "extends": "react-app"

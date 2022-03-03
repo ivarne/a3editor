@@ -6,7 +6,7 @@ import { useAppDispatch } from "../../../app/hooks";
 import { useTextResourceSelector } from "../editorSelectorHooks";
 import { Language } from "../../../generated/typescript-schema/widget";
 import { updateTextResource } from "../../repo/repoSlice";
-import useDebounce from "../../../utils/useDebounce";
+import useDebounceRouteReset from "../../../utils/useDebounceRouteReset";
 
 interface TextProps {
   component: Component;
@@ -20,7 +20,7 @@ export default function TextEditor({ component }: TextProps) {
         <div key={binding}>
           {Object.values(Language).map((language) => (
             <TextResource
-              key={language + component.id}
+              key={language}
               bindingName={binding}
               resourceId={bindings[binding]}
               language={language}
@@ -43,8 +43,8 @@ function TextResource({
   resourceId,
   language,
 }: TextResourceProps) {
-    const textResource =
-      useTextResourceSelector(resourceId, language)?.value ?? "";
+  const textResource =
+    useTextResourceSelector(resourceId, language)?.value ?? "";
   const [localText, setLocalText] = useState<string>("");
   const [markdownRendered, setMarkdownRendered] = useState<string>("");
   const dispatch = useAppDispatch();
@@ -55,7 +55,7 @@ function TextResource({
   }, [textResource]);
 
   // Debounce markdown rendering for performace
-  const debouncedLocalText = useDebounce(localText, 1000);
+  const debouncedLocalText = useDebounceRouteReset(localText, 1000);
   useEffect(() => {
     var markdown = renderMarkdown(debouncedLocalText);
     setMarkdownRendered(markdown);

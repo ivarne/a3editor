@@ -1,6 +1,6 @@
 import { shallowEqual } from "react-redux";
 import { useAppSelector } from "../../app/hooks";
-import { Languages, TextResource } from "../../app/types";
+import { Languages, RepoRoot, TextResource } from "../../app/types";
 import { Component } from "../../generated/typescript-schema/layout-inheritanceFixes";
 
 export interface ComponentExtended {
@@ -8,18 +8,26 @@ export interface ComponentExtended {
   boundResource: { [key: string]: string };
 }
 
+function getPageIndex(root:RepoRoot, page?: string){
+
+  return root.settings.pages?.order?.findIndex(
+    (p) => p.toLowerCase() === page?.toLowerCase()
+  );
+}
+
 export function useEditorSelector(page?: string) {
   const root = useAppSelector((state) => state.repo?.current, shallowEqual);
-  return root?.layouts[
-    page?.toLowerCase() ?? ""
-  ]?.data?.layout?.map<ComponentExtended>((component) => ({
-    component: component,
-    boundResource: ObjectMap(
-      component.textResourceBindings ?? {},
-      (_, id) =>
-        root.resources.nb?.resources.find((r) => r.id === id)?.value ?? ""
-    ),
-  }));
+  const pageIndex = getPageIndex(root, page) ?? -1;
+  return root?.layouts[pageIndex]?.data?.layout?.map<ComponentExtended>(
+    (component) => ({
+      component: component,
+      boundResource: ObjectMap(
+        component.textResourceBindings ?? {},
+        (_, id) =>
+          root.resources.nb?.resources.find((r) => r.id === id)?.value ?? ""
+      ),
+    })
+  );
 }
 
 export function useComponentSelector(
@@ -31,7 +39,7 @@ export function useComponentSelector(
       if (!page || !componentId) return undefined;
       const root = state.repo?.current;
       const component = root?.layouts[
-        page?.toLowerCase() ?? ""
+        getPageIndex(root, page) ?? -1
       ]?.data?.layout?.find((c) => c.id === componentId);
       if (component)
         return {
@@ -54,13 +62,15 @@ export function usePageSelector() {
 export function useTextResourceSelector(
   textResourceKey: string,
   language: Languages
-): TextResource{
-  return useAppSelector(
-    (state) =>
-      ObjectMap(state.repo.current?.resources, (_, resources) =>
-        resources.resources.find((tr) => tr.id === textResourceKey)
-      )?.[language] 
-  ) ?? {id: textResourceKey, value: ""};
+): TextResource {
+  return (
+    useAppSelector(
+      (state) =>
+        ObjectMap(state.repo.current?.resources, (_, resources) =>
+          resources.resources.find((tr) => tr.id === textResourceKey)
+        )?.[language]
+    ) ?? { id: textResourceKey, value: "" }
+  );
 }
 
 function ObjectMap<I, O>(

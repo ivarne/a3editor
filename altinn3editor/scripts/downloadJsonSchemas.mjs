@@ -66,7 +66,7 @@ async function download( host, query, destination )
     );
 }
 async function downloadSchema(schema){
-    let downloaded = await download( 'https://altinncdn.no', `/schemas/json/${schema}`, `generated/json-schema/${schema}` );
+    let downloaded = await download( 'https://altinncdn.no', `/schemas/json/${schema}`, `src/generated/json-schema/${schema}` );
     
     if( downloaded.result ){
         console.log(`Downloaded ${schema} successfully`)

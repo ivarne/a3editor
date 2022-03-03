@@ -17,6 +17,9 @@ export default function Header() {
     return (
       <header>
         <div style={{ display: "block", float: "right" }}>
+          <Link to="/validate" style={{ padding: "5px" }}>
+            Validering
+          </Link>
           <Link to="/zip" style={{ padding: "5px" }}>
             Upload
           </Link>

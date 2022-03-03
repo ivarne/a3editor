@@ -51,6 +51,6 @@ export interface Application {
 export interface RepoRoot {
   settings: LayoutSettings;
   resources: { [language in Languages]?: TextResources };
-  layouts: { [page: string]: Layout };
+  layouts: Layout[];
   applicationmetadata: Application;
 }

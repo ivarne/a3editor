@@ -1,10 +1,7 @@
 import * as zip from "@zip.js/zip.js";
-import {
-  ComponentType,
-  HeaderComponentSize,
-} from "../../generated/typescript-schema/layout";
 import { LayoutSettings } from "../../generated/typescript-schema/layoutSettings";
 import { Application, Languages, RepoRoot } from "../../app/types";
+import { Layout } from "../../generated/typescript-schema/layout-inheritanceFixes";
 
 zip.configure({
   useWebWorkers: false,
@@ -15,7 +12,7 @@ export async function getAppFilesUrl(url: string): Promise<RepoRoot> {
   var entries = await reader.getEntries();
   console.log(entries);
   return {
-    layouts: {},
+    layouts: [],
     settings: {} as LayoutSettings,
     resources: {},
     applicationmetadata: {} as Application,
@@ -26,11 +23,12 @@ export async function getAppFilesUpload(id: string): Promise<RepoRoot> {
   const fileInput = document.getElementById(id) as HTMLInputElement;
   const file = fileInput?.files?.[0];
   const root: RepoRoot = {
-    layouts: {},
+    layouts: [],
     settings: null!,
     resources: {},
     applicationmetadata: null!,
   };
+  const layouts: { [page: string]: Layout } = {};
   if (!file) return root;
   const entries = await new zip.ZipReader(
     new zip.BlobReader(file)
@@ -51,22 +49,27 @@ export async function getAppFilesUpload(id: string): Promise<RepoRoot> {
         JSON.parse(resourceString);
     } else if (path.endsWith("app/ui/layouts")) {
       var layoutString = await entry.getData?.(new zip.TextWriter());
-      root.layouts[splitLast(filename, ".")[0]] = JSON.parse(layoutString);
+      layouts[splitLast(filename, ".")[0]] = JSON.parse(layoutString);
     } else if (path.endsWith("app/ui") && filename === "settings.json") {
       var settingsString = await entry.getData?.(new zip.TextWriter());
       root.settings = JSON.parse(settingsString);
     }
   }
+  // Insert layout in correct order from settings.json
+  root.layouts =
+    root.settings?.pages?.order?.map(
+      (page) => layouts[page.toLowerCase()] ?? { data: { layout: [] } }
+    ) ?? [];
+  // If there are remaining pages
+  const unknownPages = Object.keys(layouts).filter(
+    (page) => !root.settings?.pages?.order?.includes(page)
+  );
+  // Add the unknown pages to settings and layouts
+  root.settings.pages?.order?.concat(unknownPages);
+  root.layouts.concat(unknownPages.map((page) => layouts[page]));
+
   console.log(root);
-  var c = root.layouts["summary"].data?.layout?.[1];
-  switch (c?.type) {
-    case ComponentType.Header:
-      c.size = HeaderComponentSize.L;
-      break;
-    case ComponentType.Summary:
-      console.log(c.pageRef, c.componentRef);
-      break;
-  }
+
   return root;
 }
 

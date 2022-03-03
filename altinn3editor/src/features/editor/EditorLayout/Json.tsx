@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-export interface JsonProps{
-    origContent: any,
-    update: (content:any)=>void,
+export interface JsonProps<T>{
+    origContent: T,
+    update: (content:T)=>void,
 }
 
 
-export default function Json({origContent, update}:JsonProps){
+export default function Json<T>({origContent, update}:JsonProps<T>){
     const [currentContent, updateCurrentContent] = useState<string>("");
     const [error, setError] = useState<boolean>(false);
     const [mode, setMode] = useState<"hidden" | "view" | "edit">("hidden");
