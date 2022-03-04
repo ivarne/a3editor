@@ -1,6 +1,6 @@
 import { shallowEqual } from "react-redux";
-import { useAppSelector } from "../../app/hooks";
-import { Languages, RepoRoot, TextResource } from "../../app/types";
+import { useAppSelector } from "../../redux/hooks";
+import { Languages, RepoRoot, TextResource } from "../../redux/types";
 import { Component } from "../../generated/typescript-schema/layout-inheritanceFixes";
 
 export interface ComponentExtended {

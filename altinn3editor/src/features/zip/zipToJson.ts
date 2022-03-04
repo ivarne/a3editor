@@ -1,6 +1,6 @@
 import * as zip from "@zip.js/zip.js";
 import { LayoutSettings } from "../../generated/typescript-schema/layoutSettings";
-import { Application, Languages, RepoRoot } from "../../app/types";
+import { Application, Languages, RepoRoot } from "../../redux/types";
 import { Layout } from "../../generated/typescript-schema/layout-inheritanceFixes";
 
 zip.configure({

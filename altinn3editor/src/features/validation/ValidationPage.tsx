@@ -1,4 +1,4 @@
-import { useAppSelector } from "../../app/hooks";
+import { useAppSelector } from "../../redux/hooks";
 import ComponentError from "./ComponentErrror";
 import { jsonSchamaValidateLayout } from "./helpers/jsonSchemaValidation";
 import { LayoutValidationError } from "./helpers/types";

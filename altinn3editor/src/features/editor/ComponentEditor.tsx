@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useAppDispatch } from "../../app/hooks";
+import { useAppDispatch } from "../../redux/hooks";
 import { Component } from "../../generated/typescript-schema/layout-inheritanceFixes";
-import { updateComponent } from "../repo/repoSlice";
+import { updateComponent } from "../../redux/reducers/repoSlice";
 import Json from "./EditorLayout/Json";
 import TextEditor from "./EditorLayout/Text";
 import { useComponentSelector } from "./editorSelectorHooks";

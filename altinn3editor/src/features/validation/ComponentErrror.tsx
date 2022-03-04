@@ -1,6 +1,6 @@
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import Json from "../editor/EditorLayout/Json";
-import { updateComponentByIndex } from "../repo/repoSlice";
+import { updateComponentByIndex } from "../../redux/reducers/repoSlice";
 import { LayoutValidationError } from "./helpers/types";
 
 interface Props {

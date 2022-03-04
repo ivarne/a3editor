@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { Application } from "../../app/types";
-import { updatePartyTypesAllowed } from "../repo/repoSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { Application } from "../../redux/types";
+import { updatePartyTypesAllowed } from "../../redux/reducers/repoSlice";
 
 export default function MetadataEditor() {
   const applicationmetadata = useAppSelector(

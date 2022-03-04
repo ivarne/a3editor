@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "../../app/hooks";
-import { load } from "../repo/repoSlice";
+import { useAppDispatch } from "../../redux/hooks";
+import { load } from "../../redux/reducers/repoSlice";
 import { getAppFilesUpload } from "./zipToJson";
 
 export default function ZipUpload() {

@@ -1,4 +1,4 @@
-import { useAppSelector } from "../../app/hooks";
+import { useAppSelector } from "../../redux/hooks";
 
 export default function Debug(){
     const state = useAppSelector(state=>state);

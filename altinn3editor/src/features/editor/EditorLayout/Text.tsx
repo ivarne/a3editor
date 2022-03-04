@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
 import { Component } from "../../../generated/typescript-schema/layout-inheritanceFixes";
-import { useAppDispatch } from "../../../app/hooks";
+import { useAppDispatch } from "../../../redux/hooks";
 import { useTextResourceSelector } from "../editorSelectorHooks";
 import { Language } from "../../../generated/typescript-schema/widget";
-import { updateTextResource } from "../../repo/repoSlice";
+import { updateTextResource } from "../../../redux/reducers/repoSlice";
 import useDebounceRouteReset from "../../../utils/useDebounceRouteReset";
 
 interface TextProps {

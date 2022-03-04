@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Languages, RepoRoot } from "../../app/types";
+import { Languages, RepoRoot } from "../types";
 import { Component } from "../../generated/typescript-schema/layout-inheritanceFixes";
 
 export interface RepoState {

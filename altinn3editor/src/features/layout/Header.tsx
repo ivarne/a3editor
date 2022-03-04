@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useAppSelector } from "../app/hooks";
+import { useAppSelector } from "../../redux/hooks";
 
 export default function Header() {
   const appName = useAppSelector(

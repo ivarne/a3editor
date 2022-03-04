@@ -1,5 +1,5 @@
 import * as zip from "@zip.js/zip.js";
-import { Languages, RepoRoot } from "../../app/types";
+import { Languages, RepoRoot } from "../../redux/types";
 
 export async function doDownloadZip(root: RepoRoot) {
   const zipWriter = new zip.ZipWriter(new zip.BlobWriter("application/zip"));

@@ -2,13 +2,13 @@ import React from "react";
 import Editor from "./features/editor/Editor";
 import ZipUpload from "./features/zip/ZipUpload";
 import { Route, Routes } from "react-router-dom";
-import Layout from "./design/Layout";
+import Layout from "./features/layout/Layout";
 import PageEditor from "./features/editor/PageEditor";
 import ComponentEditor from "./features/editor/ComponentEditor";
 import Debug from "./features/debug/Debug";
 import Diff from "./features/diff/DiffView";
 import ValidationPage from "./features/validation/ValidationPage";
-import ErrorBoundary from "./features/errorBoundry/ErrorBoundry";
+import ErrorBoundary from "./features/layout/errorBoundry/ErrorBoundry";
 import MetadataEditor from "./features/editor/MetadataEditor";
 
 function App() {
