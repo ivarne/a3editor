@@ -1,10 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import repoReducer from './reducers/repoSlice';
+import currentRepoReducer from './reducers/currentRepoSlice';
+import initialRepoReducer from './reducers/initialRepoSlice';
 
 export const store = configureStore({
   reducer: {
-    // counter: counterReducer,
-    repo: repoReducer,
+    currentRepo: currentRepoReducer,
+    initialRepo: initialRepoReducer
   },
 });
 

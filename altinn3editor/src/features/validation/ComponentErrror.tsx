@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import Json from "../editor/EditorLayout/Json";
-import { updateComponentByIndex } from "../../redux/reducers/repoSlice";
+import { updateComponentByIndex } from "../../redux/reducers/currentRepoSlice";
 import { LayoutValidationError } from "./helpers/types";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 
 export default function ComponentError({ error }: Props) {
   const component = useAppSelector((state) => {
-    return state.repo.current.layouts[error.pageIndex]?.data?.layout?.[
+    return state.currentRepo.layouts[error.pageIndex]?.data?.layout?.[
       error.componentIndex ?? -1
     ];
   });

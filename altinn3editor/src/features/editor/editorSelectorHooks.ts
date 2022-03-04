@@ -16,7 +16,7 @@ function getPageIndex(root:RepoRoot, page?: string){
 }
 
 export function useEditorSelector(page?: string) {
-  const root = useAppSelector((state) => state.repo?.current, shallowEqual);
+  const root = useAppSelector((state) => state.currentRepo, shallowEqual);
   const pageIndex = getPageIndex(root, page) ?? -1;
   return root?.layouts[pageIndex]?.data?.layout?.map<ComponentExtended>(
     (component) => ({
@@ -37,7 +37,7 @@ export function useComponentSelector(
   return (
     useAppSelector((state) => {
       if (!page || !componentId) return undefined;
-      const root = state.repo?.current;
+      const root = state.currentRepo;
       const component = root?.layouts[
         getPageIndex(root, page) ?? -1
       ]?.data?.layout?.find((c) => c.id === componentId);
@@ -56,7 +56,7 @@ export function useComponentSelector(
 }
 
 export function usePageSelector() {
-  return useAppSelector((state) => state.repo.current?.settings.pages?.order);
+  return useAppSelector((state) => state.currentRepo?.settings.pages?.order);
 }
 
 export function useTextResourceSelector(
@@ -66,7 +66,7 @@ export function useTextResourceSelector(
   return (
     useAppSelector(
       (state) =>
-        ObjectMap(state.repo.current?.resources, (_, resources) =>
+        ObjectMap(state.currentRepo?.resources, (_, resources) =>
           resources.resources.find((tr) => tr.id === textResourceKey)
         )?.[language]
     ) ?? { id: textResourceKey, value: "" }

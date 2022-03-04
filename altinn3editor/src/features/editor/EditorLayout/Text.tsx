@@ -5,7 +5,7 @@ import { Component } from "../../../generated/typescript-schema/layout-inheritan
 import { useAppDispatch } from "../../../redux/hooks";
 import { useTextResourceSelector } from "../editorSelectorHooks";
 import { Language } from "../../../generated/typescript-schema/widget";
-import { updateTextResource } from "../../../redux/reducers/repoSlice";
+import { updateTextResource } from "../../../redux/reducers/currentRepoSlice";
 import useDebounceRouteReset from "../../../utils/useDebounceRouteReset";
 
 interface TextProps {

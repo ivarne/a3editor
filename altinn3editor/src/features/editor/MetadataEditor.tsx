@@ -1,11 +1,11 @@
 import { ChangeEvent } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { Application } from "../../redux/types";
-import { updatePartyTypesAllowed } from "../../redux/reducers/repoSlice";
+import { updatePartyTypesAllowed } from "../../redux/reducers/currentRepoSlice";
 
 export default function MetadataEditor() {
   const applicationmetadata = useAppSelector(
-    (state) => state.repo.current.applicationmetadata
+    (state) => state.currentRepo.applicationmetadata
   );
 
   return (

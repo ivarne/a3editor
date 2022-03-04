@@ -2,28 +2,21 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Languages, RepoRoot } from "../types";
 import { Component } from "../../generated/typescript-schema/layout-inheritanceFixes";
 
-export interface RepoState {
-  initial: RepoRoot;
-  current: RepoRoot;
-}
 
-const initialState: RepoState = {
-  initial: null!,
-  current: null!,
-};
+
+const initialState = {} as RepoRoot;
 
 // Redux Toolkit allows us to write "mutating" logic in reducers. It
 // doesn't actually mutate the state because it uses the Immer library,
 // which detects changes to a "draft state" and produces a brand new
 // immutable state based off those changes
 export const repoSlice = createSlice({
-  name: "repo",
+  name: "currentRepo",
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
   reducers: {
     load: (state, action: PayloadAction<RepoRoot>) => {
-      state.initial = action.payload;
-      state.current = action.payload;
+      return action.payload;
     },
     updateComponent: (
       state,
@@ -34,9 +27,9 @@ export const repoSlice = createSlice({
       }>
     ) => {
       const pageIndex =
-        state.current.settings.pages?.order?.findIndex(page=>page.toLowerCase() === action.payload.pageRef.toLowerCase()) ??
+        state.settings.pages?.order?.findIndex(page=>page.toLowerCase() === action.payload.pageRef.toLowerCase()) ??
         -1;
-      const layout = state.current?.layouts[pageIndex].data?.layout;
+      const layout = state.layouts[pageIndex].data?.layout;
       const componentIndex = layout?.findIndex(
         (c) => c.id === action.payload.id
       )??-1;
@@ -53,7 +46,7 @@ export const repoSlice = createSlice({
       }>
     ) => {
       const { pageIndex, componentIndex } = action.payload;
-      const layout = state.current?.layouts[pageIndex].data?.layout;
+      const layout = state.layouts[pageIndex].data?.layout;
       if (layout && componentIndex && componentIndex > -1) {
         layout[componentIndex] = action.payload.component;
       }
@@ -69,14 +62,14 @@ export const repoSlice = createSlice({
     ) => {
       const { language, resourceId, text } = action.payload;
       // Ensure that language exists
-      if (!state.current.resources[language]) {
-        state.current.resources[language] = {
+      if (!state.resources[language]) {
+        state.resources[language] = {
           language: language,
           resources: [],
         };
       }
       // Get resources for language
-      const resources = state.current.resources[language]!.resources;
+      const resources = state.resources[language]!.resources;
 
       const index = resources.findIndex((r) => r.id === resourceId);
       if (index === -1) {
@@ -86,7 +79,7 @@ export const repoSlice = createSlice({
       }
     },
     updatePartyTypesAllowed: (state, action: PayloadAction<{partyType:string, allowed:boolean}>)=>{
-      const partyTypesAllowed = state.current.applicationmetadata.partyTypesAllowed;
+      const partyTypesAllowed = state.applicationmetadata.partyTypesAllowed;
       partyTypesAllowed[action.payload.partyType as keyof(typeof partyTypesAllowed)] = action.payload.allowed
     }
   },

@@ -6,9 +6,9 @@ import validateSummaryReferences from "./helpers/validateSummaryReferences";
 import validateUniqueIdsPerPage from "./helpers/validateUniqueIdsPerPage";
 
 export default function ValidationPage() {
-  const layouts = useAppSelector((state) => state.repo.current.layouts);
+  const layouts = useAppSelector((state) => state.currentRepo.layouts);
   const pages = useAppSelector(
-    (state) => state.repo.current.settings.pages?.order
+    (state) => state.currentRepo.settings.pages?.order
   );
   const errors: LayoutValidationError[] = [];
 

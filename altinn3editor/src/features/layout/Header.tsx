@@ -5,12 +5,12 @@ import { useAppSelector } from "../../redux/hooks";
 export default function Header() {
   const appName = useAppSelector(
     (state) =>
-      state.repo.current?.resources?.nb?.resources.find(
+      state.currentRepo?.resources?.nb?.resources.find(
         (t) => t.id === "appName"
       )?.value
   );
   const applicationmetadata = useAppSelector(
-    (state) => state.repo.current?.applicationmetadata
+    (state) => state.currentRepo?.applicationmetadata
   );
   const location = useLocation();
   if (appName) {
