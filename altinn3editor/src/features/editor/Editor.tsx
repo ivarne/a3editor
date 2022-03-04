@@ -8,6 +8,7 @@ export default function Editor() {
     <div>
       <nav>
         <ul>
+          <li><NavLink to={"/editor"}>Metadata</NavLink></li>
           {pages?.map((page) => (
             <li key={page}>
               <NavLink to={`/editor/${page.toLowerCase()}`}>{page}</NavLink>

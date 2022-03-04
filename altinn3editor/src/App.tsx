@@ -9,6 +9,7 @@ import Debug from "./features/debug/Debug";
 import Diff from "./features/diff/DiffView";
 import ValidationPage from "./features/validation/ValidationPage";
 import ErrorBoundary from "./features/errorBoundry/ErrorBoundry";
+import MetadataEditor from "./features/editor/MetadataEditor";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="diff" element={<Diff />} />
           <Route path="zip" element={<ZipUpload />} />
           <Route path="editor" element={<Editor />}>
+            <Route path="" element={<MetadataEditor/>}/>
             <Route path=":page" element={<PageEditor />}>
               <Route path=":componentId" element={<ComponentEditor />} />
             </Route>
