@@ -5,7 +5,7 @@ export interface JsonProps<T> {
   update: (content: T) => void;
 }
 
-export default function Json<T>({ origContent, update }: JsonProps<T>) {
+export default function Json<T>({ origContent, update }: JsonProps<T>){
   const [currentContent, updateCurrentContent] = useState<string>("");
   const [error, setError] = useState<boolean>(false);
   const [mode, setMode] = useState<"hidden" | "edit">("hidden");

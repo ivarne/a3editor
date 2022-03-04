@@ -15,20 +15,32 @@ interface TextProps {
 export default function TextEditor({ component }: TextProps) {
   const bindings = component?.textResourceBindings ?? {};
   return (
-    <div>
-      {Object.keys(bindings).map((binding) => (
-        <div key={binding}>
+    <table>
+      <thead>
+        <tr>
+          <th></th>
           {Object.values(Language).map((language) => (
-            <TextResource
-              key={language}
-              bindingName={binding}
-              resourceId={bindings[binding]}
-              language={language}
-            />
+            <th key={language}>{language}</th>
           ))}
-        </div>
-      ))}
-    </div>
+        </tr>
+      </thead>
+      <tbody>
+        {Object.keys(bindings).map((binding) => (
+          <tr key={binding}>
+            <td>{binding}</td>
+            {Object.values(Language).map((language) => (
+              <td key={language}>
+                <TextResource
+                  bindingName={binding}
+                  resourceId={bindings[binding]}
+                  language={language}
+                />
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }
 
@@ -63,22 +75,19 @@ function TextResource({
 
   return (
     <div>
-      <label>
-        {bindingName}
-        <textarea
-          value={localText}
-          onChange={(e) => setLocalText(e.target.value)}
-          onBlur={(e) => {
-            dispatch(
-              updateTextResource({
-                language,
-                resourceId,
-                text: localText,
-              })
-            );
-          }}
-        />
-      </label>
+      <textarea
+        value={localText}
+        onChange={(e) => setLocalText(e.target.value)}
+        onBlur={(e) => {
+          dispatch(
+            updateTextResource({
+              language,
+              resourceId,
+              text: localText,
+            })
+          );
+        }}
+      />
       <div dangerouslySetInnerHTML={{ __html: markdownRendered }} />
     </div>
   );

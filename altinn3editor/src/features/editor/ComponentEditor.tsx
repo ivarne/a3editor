@@ -22,13 +22,13 @@ export default function ComponentEditor() {
   return (
     <div>
       <h2>
-        {component?.boundResource?.["title"]}{" "}
-        <small>{component?.component?.type}</small>
+        {component.boundResource?.["title"]}{" "}
+        <small>{component.component.type}</small>
       </h2>
-      ComponentEditor {page}, {componentId}
+      ComponentEditor {page}, <small>{componentId}</small>
       <div>
         <TextEditor component={component.component} />
-        <Json origContent={component?.component} update={handleJsonUpdate} />
+        <Json origContent={component.component} update={handleJsonUpdate} />
       </div>
     </div>
   );
