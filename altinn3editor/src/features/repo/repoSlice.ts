@@ -34,13 +34,13 @@ export const repoSlice = createSlice({
       }>
     ) => {
       const pageIndex =
-        state.current.settings.pages?.order?.indexOf(action.payload.pageRef) ??
+        state.current.settings.pages?.order?.findIndex(page=>page.toLowerCase() === action.payload.pageRef.toLowerCase()) ??
         -1;
       const layout = state.current?.layouts[pageIndex].data?.layout;
       const componentIndex = layout?.findIndex(
         (c) => c.id === action.payload.id
-      );
-      if (layout && componentIndex) {
+      )??-1;
+      if (layout && componentIndex>-1) {
         layout[componentIndex] = action.payload.component;
       }
     },

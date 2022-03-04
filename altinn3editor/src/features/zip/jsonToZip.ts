@@ -15,8 +15,10 @@ export async function doDownloadZip(root: RepoRoot) {
 }
 
 async function addFiles(zipWriter: zip.ZipWriter, root: RepoRoot) {
+  // add settings file
   await addJson(zipWriter, "App/ui/settings.json", root.settings);
 
+  // add layout files
   for (const { page, index } of root.settings.pages?.order?.map(
     (page, index) => ({ page, index })
   ) ?? []) {
@@ -26,7 +28,7 @@ async function addFiles(zipWriter: zip.ZipWriter, root: RepoRoot) {
       root.layouts[index]
     );
   }
-
+  // add text resources
   for (const lang in root.resources) {
     await addJson(
       zipWriter,

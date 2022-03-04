@@ -1,6 +1,6 @@
 export interface LayoutValidationError {
   pageIndex: number;
-  componentIndex?: number;
+  componentIndex: number;
   message: string;
-  data: any;
+  data?: any; // Any raw json that might make sense to display
 }

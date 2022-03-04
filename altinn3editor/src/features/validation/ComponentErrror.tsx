@@ -8,32 +8,33 @@ interface Props {
 }
 
 export default function ComponentError({ error }: Props) {
-  if (!error.componentIndex) {
-    return <pre>{JSON.stringify(error, null, 4)}</pre>;
-  }
-  return <ComponentErrorEditor error={error} />;
-}
-
-function ComponentErrorEditor({ error }: Props) {
   const component = useAppSelector((state) => {
     return state.repo.current.layouts[error.pageIndex]?.data?.layout?.[
-      error.componentIndex ?? 0
+      error.componentIndex ?? -1
     ];
   });
   const dispatch = useAppDispatch();
   const handleJsonUpdate = (c: typeof component) => {
-    if (component && error.componentIndex)
+    if (c && error.componentIndex > -1)
       dispatch(
         updateComponentByIndex({
-          component,
+          component: c,
           componentIndex: error.componentIndex,
           pageIndex: error.pageIndex,
         })
       );
   };
+  if (component) {
+    return (
+      <div>
+        <h2>{error.message}</h2>
+        <Json origContent={component} update={handleJsonUpdate} />
+      </div>
+    );
+  }
   return (
     <div>
-      <Json origContent={component} update={handleJsonUpdate} />
+      <h2>{error.message}</h2>
     </div>
   );
 }
