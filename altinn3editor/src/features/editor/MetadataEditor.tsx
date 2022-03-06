@@ -2,6 +2,7 @@ import { ChangeEvent } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { Application } from "../../redux/types";
 import { updatePartyTypesAllowed } from "../../redux/reducers/currentRepoSlice";
+import LanguageToggler from "./EditorLayout/LanguageToggler";
 
 export default function MetadataEditor() {
   const applicationmetadata = useAppSelector(
@@ -10,6 +11,7 @@ export default function MetadataEditor() {
 
   return (
     <div>
+      <LanguageToggler/>
       <PartyTypesEditor application={applicationmetadata} />
     </div>
   );
@@ -25,7 +27,7 @@ interface PartyTypesEditorProps {
 // subUnit: boolean;
 function PartyTypesEditor({ application }: PartyTypesEditorProps) {
   const dispatch = useAppDispatch();
-  const handleClick = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
       dispatch(updatePartyTypesAllowed({partyType: e.target.name, allowed: e.target.checked}));
   };
   return (
@@ -36,7 +38,7 @@ function PartyTypesEditor({ application }: PartyTypesEditorProps) {
           <input
             type="checkbox"
             name="bankruptcyEstate"
-            onChange={handleClick}
+            onChange={handleChange}
             checked={application.partyTypesAllowed.bankruptcyEstate}
           />
         </label>
@@ -47,7 +49,7 @@ function PartyTypesEditor({ application }: PartyTypesEditorProps) {
           <input
             type="checkbox"
             name="organisation"
-            onChange={handleClick}
+            onChange={handleChange}
             checked={application.partyTypesAllowed.organisation}
           />
         </label>
@@ -58,7 +60,7 @@ function PartyTypesEditor({ application }: PartyTypesEditorProps) {
           <input
             type="checkbox"
             name="person"
-            onChange={handleClick}
+            onChange={handleChange}
             checked={application.partyTypesAllowed.person}
           />
         </label>
@@ -69,7 +71,7 @@ function PartyTypesEditor({ application }: PartyTypesEditorProps) {
           <input
             type="checkbox"
             name="subUnit"
-            onChange={handleClick}
+            onChange={handleChange}
             checked={application.partyTypesAllowed.subUnit}
           />
         </label>

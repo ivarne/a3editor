@@ -2,24 +2,25 @@ import React, { useEffect, useState } from "react";
 import { marked } from "marked";
 import DOMPurify from "dompurify";
 import { Component } from "../../../generated/typescript-schema/layout-inheritanceFixes";
-import { useAppDispatch } from "../../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
 import { useTextResourceSelector } from "../editorSelectorHooks";
-import { Language } from "../../../generated/typescript-schema/widget";
 import { updateTextResource } from "../../../redux/reducers/currentRepoSlice";
 import useDebounceRouteReset from "../../../utils/useDebounceRouteReset";
+import { Languages } from "../../../redux/types";
 
 interface TextProps {
   component: Component;
 }
 
 export default function TextEditor({ component }: TextProps) {
+  const languages = useAppSelector(state=>state.editorSettings.activeLanguages)
   const bindings = component?.textResourceBindings ?? {};
   return (
     <table>
       <thead>
         <tr>
           <th></th>
-          {Object.values(Language).map((language) => (
+          {Object.keys(languages).filter(language=>languages[language as Languages]).map((language) => (
             <th key={language}>{language}</th>
           ))}
         </tr>
@@ -28,12 +29,12 @@ export default function TextEditor({ component }: TextProps) {
         {Object.keys(bindings).map((binding) => (
           <tr key={binding}>
             <td>{binding}</td>
-            {Object.values(Language).map((language) => (
+            {Object.keys(languages).filter(language=>languages[language as Languages]).map((language) => (
               <td key={language}>
                 <TextResource
                   bindingName={binding}
                   resourceId={bindings[binding]}
-                  language={language}
+                  language={language as Languages}
                 />
               </td>
             ))}
@@ -47,7 +48,7 @@ export default function TextEditor({ component }: TextProps) {
 interface TextResourceProps {
   bindingName: string;
   resourceId: string;
-  language: Language;
+  language: Languages;
 }
 
 function TextResource({

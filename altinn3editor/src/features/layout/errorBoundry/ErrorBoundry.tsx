@@ -30,6 +30,7 @@ export default class ErrorBoundary extends Component<Props, State> {
           <p>
             Click <a href="/zip">this link</a> to refresh and upload a new zip
           </p>
+          <p>Click <button onClick={()=>this.setState({hasError:false})}>here</button> to reset error</p>
         </div>
       );
     }
