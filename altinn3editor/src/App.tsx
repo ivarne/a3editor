@@ -15,7 +15,7 @@ function App() {
   return (
     <ErrorBoundary>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path="/a3editor/" element={<Layout />}>
           <Route path="diff" element={<Diff />} />
           <Route path="zip" element={<ZipUpload />} />
           <Route path="editor" element={<Editor />}>
