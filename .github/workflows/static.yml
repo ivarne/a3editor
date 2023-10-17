@@ -47,7 +47,7 @@ jobs:
         uses: actions/upload-pages-artifact@v2
         with:
           # Upload build artifact
-          path: 'altinn3editor/static/'
+          path: 'altinn3editor/build/'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
