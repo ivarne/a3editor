@@ -24,6 +24,7 @@
     "react-scripts": "^5.0.1",
     "typescript": "~4.5.5"
   },
+  "homepage":"https://ivarne.github.io/a3editor/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
